@@ -1,0 +1,49 @@
+
+
+<form class="example-form" [formGroup]="searchForm">
+  <mat-form-field class="example-full-width mat-form-field-input" >
+    <mat-label>Search Character</mat-label>
+    <input matInput placeholder="Ex. Rick" value="" type="text" name="" formControlName="search" (input)="onSearch()"
+      placeholder="search character" id="">
+  </mat-form-field>
+</form>
+
+
+
+
+<div class="changingPagesBtn">
+  <button mat-button (click)="loadPreviousPage()"> Previous </button>
+  {{this.currentPage}}
+  <button mat-button (click)="loadNextPage()">Next </button>
+  </div>
+
+
+<div *ngIf="notFound" class="notFound">
+
+</div>
+
+<mat-grid-list [cols]="isPhone ? 1 : (isTablet ? 2 : 4)" *ngIf="characterList?.length && !notFound" class="container">
+  <mat-grid-tile *ngFor="let character of characterList">
+    <app-character class="card-padding" [character]="character"></app-character>
+  </mat-grid-tile>
+</mat-grid-list>
+
+
+
+
+<mat-grid-list [cols]="isPhone ? 1 : (isTablet ? 2 : 4)" class="container" *ngIf="!characterList?.length && !notFound" >
+  <mat-grid-tile *ngFor="let character of characters">
+     <app-character class="card-padding" [character]="character"></app-character>
+  </mat-grid-tile>
+</mat-grid-list>
+
+
+<div class="changingPagesBtn">
+  <button mat-button (click)="loadPreviousPage()"><-</button>
+  <div class="smallPages" (click)="loadPreviousPage()">{{this.currentPage -1}}</div>
+   {{this.currentPage}}
+   <div class="smallPages" (click)="loadNextPage()">{{this.currentPage +1}}</div>
+  <button mat-button (click)="loadNextPage()">-></button>
+</div>
+
+

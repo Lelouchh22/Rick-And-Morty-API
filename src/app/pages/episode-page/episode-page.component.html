@@ -1,0 +1,35 @@
+<form class="example-form" [formGroup]="searchForm">
+  <mat-form-field class="example-full-width">
+    <mat-label>Search Episode</mat-label>
+    <input matInput placeholder="Ex. SnakePlanet" value="" type="text" name="" formControlName="search"
+      placeholder="Search Episode" id="">
+  </mat-form-field>
+  <!-- <button mat-icon-button (click)="changeThemes()">
+    <mat-icon>{{isLight ? "dark_mode" : "light_mode"}}</mat-icon>
+  </button> -->
+</form>
+<div class="changingPagesBtn">
+  <button mat-button (click)="loadPreviousPage()"> Previous </button>
+  {{this.currentPage}}
+  <button mat-button (click)="loadNextPage()">Next </button>
+  </div>
+
+<mat-grid-list [cols]="isPhone ? 1 : (isTablet ? 2 : 3)" *ngIf="episodeList?.length" class="container">
+  <mat-grid-tile *ngFor="let episode of episodeList">
+     <app-episode [episode]="episode"></app-episode>
+  </mat-grid-tile>
+</mat-grid-list>
+
+<mat-grid-list [cols]="isPhone ? 1 : (isTablet ? 2 : 4)" class="container" *ngIf="!episodeList?.length">
+  <mat-grid-tile *ngFor="let episode of episodes">
+    <app-episode [episode]="episode"></app-episode>
+  </mat-grid-tile>
+</mat-grid-list>
+
+<div class="changingPagesBtn">
+  <button mat-button (click)="loadPreviousPage()"><-</button>
+  <div class="smallPages" (click)="loadPreviousPage()">{{this.currentPage -1}}</div>
+   {{this.currentPage}}
+   <div class="smallPages" (click)="loadNextPage()">{{this.currentPage +1}}</div>
+  <button mat-button (click)="loadNextPage()">-></button>
+</div>
